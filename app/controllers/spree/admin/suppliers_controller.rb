@@ -14,7 +14,7 @@ class Spree::Admin::SuppliersController < Spree::Admin::ResourceController
   end
 
   def create
-    @supplier = Spree::Supplier.new(params[:supplier])
+    @supplier = Spree::Supplier.new(supplier_params)
 
     respond_to do |format|
       if @supplier.save
@@ -30,7 +30,7 @@ class Spree::Admin::SuppliersController < Spree::Admin::ResourceController
     @supplier = Spree::Supplier.find(params[:id])
 
     respond_to do |format|
-      if @supplier.update_attributes(params[:supplier])
+      if @supplier.update_attributes(supplier_params)
         flash.notice = flash_message_for(@supplier, :successfully_updated)
         format.html { redirect_to admin_suppliers_path }
       else
@@ -110,4 +110,9 @@ class Spree::Admin::SuppliersController < Spree::Admin::ResourceController
   def strip_nonnumeric_chars(str)
     str.gsub(/[^\d.]+/,'')
   end
+
+def supplier_params
+    params.require(:supplier).permit(:name, :address1, :address2, :city, :state_id, :zip_code, :phone, :fax, :email, :website, :notes)
+  end
+
 end
