@@ -5,8 +5,8 @@
 
 module Spree
   class ProductSupplier < ActiveRecord::Base
-    set_table_name "products_suppliers" # same table is used for has_and_belongs_to_many join table
-    set_primary_key "id"
+    self.table_name  = :products_suppliers # same table is used for has_and_belongs_to_many join table
+    self.primary_key = :id
 
     belongs_to :supplier
     belongs_to :product
